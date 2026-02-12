@@ -1,11 +1,13 @@
 import discord 
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord import app_commands
 from dotenv import load_dotenv
 import os 
 import asyncio
 from collections import deque
 import random
+import datetime
+import pytz
 
 from keep_alive import keep_alive   
 
@@ -22,6 +24,7 @@ intents.members = True
 
 bot = commands.Bot(command_prefix='!', intents=intents)
 
+BC_CHANNEL_ID = 1372796413909401640
 
 lunchOptions = [
     "Cơm chay",
@@ -35,11 +38,20 @@ lunchOptions = [
     "Deni"
 ]
 
+tz = pytz.timezone("Asia/Ho_Chi_Minh")
+target_time = datetime.time(hour=14,minute=40, tzinfo=tz)
+
+@tasks.loop(time=target_time)
+async def daily_message():
+    channel = bot.get_channel(BC_CHANNEL_ID)
+    if channel:
+        await channel.send("Mèo méo meo mèo meo. Ăn trưa thôi cậu chủ ơi!")
 
 @bot.event
 async def on_ready():
     await bot.tree.sync()
     print(f'Logged in as {bot.user.name}')
+    daily_message.start()
 
 @bot.event
 async def on_message(message):
