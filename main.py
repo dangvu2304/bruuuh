@@ -46,13 +46,19 @@ async def on_message(message):
     if message.author == bot.user:
         return
     
-    if "xin nghỉ" in message.content.lower():
-        await message.channel.send("Nghỉ gì nghỉ hoài vậy ba")
+
 
     await bot.process_commands(message)
 
-@bot.command()
-async def gachaLunch(ctx):
-    await ctx.send("Trưa nay bạn nên ăn: " + random.choice(lunchOptions))
+
+
+@bot.tree.command(name = "lunchgacha", description="Gacha món ăn trưa gần cty")
+async def lunchgacha(interaction):
+    await interaction.response.send_message("Trưa nay ăn " + random.choice(lunchOptions))
+
+
+@bot.tree.command(name = "lunchgachawheel", description="Gacha món ăn trưa gần cty bằng wheel of names")
+async def lunchgachawheel(interaction):
+    await interaction.response.send_message("https://wheelofnames.com/h8j-7bm")
 
 bot.run(token)
