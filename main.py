@@ -39,13 +39,13 @@ lunchOptions = [
 ]
 
 tz = pytz.timezone("Asia/Ho_Chi_Minh")
-target_time = datetime.time(hour=14,minute=40, tzinfo=tz)
+target_time = datetime.time(hour=14,minute=42, tzinfo=tz)
 
 @tasks.loop(time=target_time)
 async def daily_message():
     channel = bot.get_channel(BC_CHANNEL_ID)
     if channel:
-        await channel.send("Mèo méo meo mèo meo. Ăn trưa thôi cậu chủ ơi!")
+        await channel.send("@1053683908220289075 Mèo méo meo mèo meo. Ăn trưa thôi cậu chủ ơi!")
 
 @bot.event
 async def on_ready():
