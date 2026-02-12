@@ -39,7 +39,7 @@ lunchOptions = [
 ]
 
 tz = pytz.timezone("Asia/Ho_Chi_Minh")
-target_time = datetime.time(hour=14,minute=46, tzinfo=tz)
+target_time = datetime.time(hour=14,minute=57, tzinfo=tz)
 
 @tasks.loop(time=target_time)
 async def daily_message():
